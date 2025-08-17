@@ -32,7 +32,10 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # JWT Configuration
-app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'your-secret-string')  # Change this in production!
+jwt_secret = os.environ.get('JWT_SECRET_KEY', 'your-secret-string')
+print(f"🔑 JWT Secret Key loaded: {jwt_secret[:10]}...") # Solo mostrar primeros 10 caracteres por seguridad
+
+app.config['JWT_SECRET_KEY'] = jwt_secret  # Change this in production!
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=24)  # Token expires in 24 hours
 
 # Initialize JWT
@@ -59,6 +62,7 @@ def handle_invalid_usage(error):
 # JWT error handlers
 @jwt.expired_token_loader
 def expired_token_callback(jwt_header, jwt_payload):
+    print("🔥 Token expired")
     return jsonify({
         'message': 'Token has expired',
         'error': 'token_expired'
@@ -66,6 +70,7 @@ def expired_token_callback(jwt_header, jwt_payload):
 
 @jwt.invalid_token_loader
 def invalid_token_callback(error):
+    print(f"🚫 Invalid token: {error}")
     return jsonify({
         'message': 'Invalid token',
         'error': 'invalid_token'
@@ -73,6 +78,7 @@ def invalid_token_callback(error):
 
 @jwt.unauthorized_loader
 def missing_token_callback(error):
+    print(f"❌ Missing token: {error}")
     return jsonify({
         'message': 'Authorization token is required',
         'error': 'authorization_required'

@@ -1,9 +1,8 @@
 import React, { useEffect } from "react"
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
+import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 export const Home = () => {
-
 	const { store, dispatch } = useGlobalReducer()
 
 	const loadMessage = async () => {
@@ -25,7 +24,6 @@ export const Home = () => {
 				Please check if the backend is running and the backend port is public.`
 			);
 		}
-
 	}
 
 	useEffect(() => {
@@ -34,19 +32,118 @@ export const Home = () => {
 
 	return (
 		<div className="text-center mt-5">
-			<h1 className="display-4">Hello Rigo!!</h1>
-			<p className="lead">
-				<img src={rigoImageUrl} className="img-fluid rounded-circle mb-3" alt="Rigo Baby" />
-			</p>
+			<h1 className="display-4">JWT Authentication Demo</h1>
+			
+			{/* Backend Message */}
 			<div className="alert alert-info">
 				{store.message ? (
-					<span>{store.message}</span>
+					<span>✅ {store.message}</span>
 				) : (
 					<span className="text-danger">
-						Loading message from the backend (make sure your python 🐍 backend is running)...
+						⏳ Loading message from the backend (make sure your Python 🐍 backend is running)...
 					</span>
 				)}
 			</div>
+
+			{/* Authentication Status */}
+			<div className="row justify-content-center mt-5">
+				<div className="col-md-8">
+					{store.isAuthenticated ? (
+						// Authenticated view
+						<div className="card border-success">
+							<div className="card-header bg-success text-white">
+								<h5 className="mb-0">🎉 Welcome back!</h5>
+							</div>
+							<div className="card-body">
+								<h6 className="card-title">
+									Hello, {store.user?.first_name || store.user?.email}!
+								</h6>
+								<p className="card-text">
+									You are successfully logged in. You can now access protected areas of the application.
+								</p>
+								<div className="d-flex gap-2 justify-content-center flex-wrap">
+									<Link to="/profile" className="btn btn-primary">
+										My Profile
+									</Link>
+									<Link to="/private" className="btn btn-success">
+										Private Area
+									</Link>
+									<Link to="/demo" className="btn btn-outline-info">
+										Demo
+									</Link>
+								</div>
+							</div>
+						</div>
+					) : (
+						// Non-authenticated view
+						<div className="card border-primary">
+							<div className="card-header bg-primary text-white">
+								<h5 className="mb-0">🔐 Authentication Required</h5>
+							</div>
+							<div className="card-body">
+								<h6 className="card-title">Get Started</h6>
+								<p className="card-text">
+									Sign up for a new account or log in to access protected features and your personal dashboard.
+								</p>
+								<div className="d-flex gap-2 justify-content-center flex-wrap">
+									<Link to="/signup" className="btn btn-primary">
+										Sign Up
+									</Link>
+									<Link to="/login" className="btn btn-outline-primary">
+										Log In
+									</Link>
+									<Link to="/demo" className="btn btn-outline-info">
+										Demo (Public)
+									</Link>
+								</div>
+								
+								{/* Test Credentials */}
+								<div className="mt-4 p-3 bg-light rounded">
+									<small className="text-muted">
+										<strong>Test Credentials:</strong><br />
+										Email: <code>john@example.com</code><br />
+										Password: <code>123456</code>
+									</small>
+								</div>
+							</div>
+						</div>
+					)}
+				</div>
+			</div>
+
+			{/* Features Overview */}
+			<div className="row mt-5">
+				<div className="col-md-4">
+					<div className="card h-100">
+						<div className="card-body">
+							<h5 className="card-title">🔒 Secure Authentication</h5>
+							<p className="card-text">
+								JWT-based authentication with secure password hashing and token management.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div className="col-md-4">
+					<div className="card h-100">
+						<div className="card-body">
+							<h5 className="card-title">👤 User Profiles</h5>
+							<p className="card-text">
+								Complete user management with profile editing and password change functionality.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div className="col-md-4">
+					<div className="card h-100">
+						<div className="card-body">
+							<h5 className="card-title">🛡️ Protected Routes</h5>
+							<p className="card-text">
+								Automatic route protection with redirect to login for unauthorized access.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
-}; 
+};
