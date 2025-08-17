@@ -28,9 +28,6 @@ export const Navbar = () => {
 							<Link to="/private">
 								<button className="btn btn-outline-secondary btn-sm me-2">Private</button>
 							</Link>
-							<Link to="/demo">
-								<button className="btn btn-outline-info btn-sm me-2">Demo</button>
-							</Link>
 							<button 
 								className="btn btn-outline-danger btn-sm" 
 								onClick={handleLogout}
@@ -45,10 +42,7 @@ export const Navbar = () => {
 								<button className="btn btn-primary btn-sm me-2">Login</button>
 							</Link>
 							<Link to="/signup">
-								<button className="btn btn-outline-primary btn-sm me-2">Sign Up</button>
-							</Link>
-							<Link to="/demo">
-								<button className="btn btn-outline-info btn-sm">Demo</button>
+								<button className="btn btn-outline-primary btn-sm">Sign Up</button>
 							</Link>
 						</>
 					)}

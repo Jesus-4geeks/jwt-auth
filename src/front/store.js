@@ -41,7 +41,6 @@ export default function storeReducer(store, action = {}) {
       // Save to sessionStorage
       sessionStorage.setItem('token', action.payload.token);
       sessionStorage.setItem('user', JSON.stringify(action.payload.user));
-      console.log('Token saved to sessionStorage:', action.payload.token); // Debug
       return {
         ...store,
         user: action.payload.user,

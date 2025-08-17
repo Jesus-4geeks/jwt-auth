@@ -66,7 +66,7 @@ export const Private = () => {
         <div className="container mt-5">
             <div className="row">
                 <div className="col-12">
-                    <h1 className="display-4 text-center mb-4">🔒 Private Area</h1>
+                    <h1 className="text-center mb-4">Private Area</h1>
                     
                     {error && (
                         <div className="alert alert-danger" role="alert">
@@ -82,7 +82,7 @@ export const Private = () => {
                                 {privateMessage || `Hello ${store.user?.first_name || store.user?.email}! This is a protected route that requires authentication.`}
                             </p>
                             <div className="alert alert-info">
-                                <strong>🎉 Success!</strong> You have successfully authenticated and can access this private content.
+                                <strong>Success!</strong> You have successfully authenticated and can access this private content.
                             </div>
                         </div>
                     </div>
@@ -186,11 +186,8 @@ export const Private = () => {
 
                     {/* Navigation */}
                     <div className="text-center mt-4">
-                        <Link to="/" className="btn btn-outline-primary me-2">
+                        <Link to="/" className="btn btn-outline-primary">
                             Back to Home
-                        </Link>
-                        <Link to="/demo" className="btn btn-outline-info">
-                            Check Demo
                         </Link>
                     </div>
                 </div>

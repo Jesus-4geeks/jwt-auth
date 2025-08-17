@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import useGlobalReducer from '../hooks/useGlobalReducer';
 
 export const Profile = () => {
@@ -57,9 +58,6 @@ export const Profile = () => {
 
         try {
             const backendUrl = import.meta.env.VITE_BACKEND_URL;
-            
-            console.log('Token:', store.token); // Debug
-            console.log('Profile data:', profileData); // Debug
             
             const response = await fetch(`${backendUrl}/api/profile`, {
                 method: 'PUT',
@@ -375,6 +373,13 @@ export const Profile = () => {
                                 </p>
                             )}
                         </div>
+                    </div>
+
+                    {/* Navigation */}
+                    <div className="text-center mt-4">
+                        <Link to="/" className="btn btn-outline-primary">
+                            Back to Home
+                        </Link>
                     </div>
                 </div>
             </div>

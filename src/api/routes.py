@@ -160,14 +160,8 @@ def get_profile():
 def update_profile():
     """Update current user profile (protected route)"""
     try:
-        # Debug: Imprimir información del token
-        from flask import request as flask_request
-        auth_header = flask_request.headers.get('Authorization')
-        print(f"Authorization header: {auth_header}")
-        
         # Get current user ID from JWT token (convert back to int)
         current_user_id = int(get_jwt_identity())
-        print(f"Current user ID from token: {current_user_id}")
         
         # Find user by ID
         user = User.query.get(current_user_id)
@@ -177,7 +171,6 @@ def update_profile():
         
         # Get data from request
         data = request.get_json()
-        print(f"Received data: {data}")
         
         if not data:
             raise APIException("No data provided", status_code=400)
@@ -201,7 +194,6 @@ def update_profile():
         
         # Save changes
         db.session.commit()
-        print(f"User updated successfully: {user.serialize()}")
         
         return jsonify({
             "message": "Profile updated successfully",
@@ -213,7 +205,6 @@ def update_profile():
         raise e
     except Exception as e:
         db.session.rollback()
-        print(f"Unexpected error: {str(e)}")
         raise APIException(f"An error occurred: {str(e)}", status_code=500)
 
 @api.route('/change-password', methods=['PUT'])

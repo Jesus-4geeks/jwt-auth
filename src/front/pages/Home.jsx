@@ -26,21 +26,25 @@ export const Home = () => {
 		}
 	}
 
+	const handleLogout = () => {
+		dispatch({ type: "logout" });
+	};
+
 	useEffect(() => {
 		loadMessage()
 	}, [])
 
 	return (
-		<div className="text-center mt-5">
-			<h1 className="display-4">JWT Authentication Demo</h1>
+		<div className="container mt-5">
+			<h1 className="text-center mb-4">JWT Authentication Demo</h1>
 			
 			{/* Backend Message */}
-			<div className="alert alert-info">
+			<div className="alert alert-info text-center">
 				{store.message ? (
-					<span>✅ {store.message}</span>
+					<span>{store.message}</span>
 				) : (
 					<span className="text-danger">
-						⏳ Loading message from the backend (make sure your Python 🐍 backend is running)...
+						Loading message from the backend...
 					</span>
 				)}
 			</div>
@@ -50,9 +54,9 @@ export const Home = () => {
 				<div className="col-md-8">
 					{store.isAuthenticated ? (
 						// Authenticated view
-						<div className="card border-success">
+						<div className="card">
 							<div className="card-header bg-success text-white">
-								<h5 className="mb-0">🎉 Welcome back!</h5>
+								<h5 className="mb-0">Welcome back!</h5>
 							</div>
 							<div className="card-body">
 								<h6 className="card-title">
@@ -61,48 +65,48 @@ export const Home = () => {
 								<p className="card-text">
 									You are successfully logged in. You can now access protected areas of the application.
 								</p>
-								<div className="d-flex gap-2 justify-content-center flex-wrap">
-									<Link to="/profile" className="btn btn-primary">
+								<div className="text-center">
+									<Link to="/profile" className="btn btn-primary me-2">
 										My Profile
 									</Link>
-									<Link to="/private" className="btn btn-success">
+									<Link to="/private" className="btn btn-success me-2">
 										Private Area
 									</Link>
-									<Link to="/demo" className="btn btn-outline-info">
-										Demo
-									</Link>
+									<button 
+										className="btn btn-danger" 
+										onClick={handleLogout}
+									>
+										Logout
+									</button>
 								</div>
 							</div>
 						</div>
 					) : (
 						// Non-authenticated view
-						<div className="card border-primary">
+						<div className="card">
 							<div className="card-header bg-primary text-white">
-								<h5 className="mb-0">🔐 Authentication Required</h5>
+								<h5 className="mb-0">Authentication Required</h5>
 							</div>
 							<div className="card-body">
 								<h6 className="card-title">Get Started</h6>
 								<p className="card-text">
 									Sign up for a new account or log in to access protected features and your personal dashboard.
 								</p>
-								<div className="d-flex gap-2 justify-content-center flex-wrap">
-									<Link to="/signup" className="btn btn-primary">
+								<div className="text-center">
+									<Link to="/signup" className="btn btn-primary me-2">
 										Sign Up
 									</Link>
 									<Link to="/login" className="btn btn-outline-primary">
 										Log In
 									</Link>
-									<Link to="/demo" className="btn btn-outline-info">
-										Demo (Public)
-									</Link>
 								</div>
 								
 								{/* Test Credentials */}
-								<div className="mt-4 p-3 bg-light rounded">
+								<div className="mt-4 p-3 bg-light rounded text-center">
 									<small className="text-muted">
 										<strong>Test Credentials:</strong><br />
-										Email: <code>john@example.com</code><br />
-										Password: <code>123456</code>
+										Email: john@example.com<br />
+										Password: 123456
 									</small>
 								</div>
 							</div>
@@ -116,7 +120,7 @@ export const Home = () => {
 				<div className="col-md-4">
 					<div className="card h-100">
 						<div className="card-body">
-							<h5 className="card-title">🔒 Secure Authentication</h5>
+							<h5 className="card-title">Secure Authentication</h5>
 							<p className="card-text">
 								JWT-based authentication with secure password hashing and token management.
 							</p>
@@ -126,7 +130,7 @@ export const Home = () => {
 				<div className="col-md-4">
 					<div className="card h-100">
 						<div className="card-body">
-							<h5 className="card-title">👤 User Profiles</h5>
+							<h5 className="card-title">User Profiles</h5>
 							<p className="card-text">
 								Complete user management with profile editing and password change functionality.
 							</p>
@@ -136,7 +140,7 @@ export const Home = () => {
 				<div className="col-md-4">
 					<div className="card h-100">
 						<div className="card-body">
-							<h5 className="card-title">🛡️ Protected Routes</h5>
+							<h5 className="card-title">Protected Routes</h5>
 							<p className="card-text">
 								Automatic route protection with redirect to login for unauthorized access.
 							</p>
